@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="magibNewForm.css">
     <title>Magib New Form</title>
 </head>
 <body>
@@ -18,14 +19,13 @@
              <div id="passDiv">
                 <label for="pass" id = "passLab">Password</label>
                 <input type="password" name="password" id="password">
-                <button id="togglePassword">Show</button>
+                <button id="toggleShow">Show</button>
             </div>
             <input type="submit" value="Submit Form" id="subBut" onclick= "errorChecker()">
         </form>
         </fieldset>
-        <p class="errMess" id="errMessage"></p>
-
-
-        <script src="magibNewForm.js"></script>
+        <p id="errMess1"></p>
+        <p id = "errMess2">"Password needs at least one <span id = 'errCapMess'>Capital Letter</span>, one <span id = 'errNumMess'>Number</span>, one <span id = 'errSymMess'>Symbol</span> and it should be at <span id = 'errLenMess'>least 10 characters long</span>"</p> 
+<script src="magibNewForm.js"></script>
 </body>
 </html>

@@ -1,7 +1,12 @@
 const ageErreur = document.querySelector("#ageErreur");
-const errMessage = document.querySelector("#errMessage");
-const nameF = document.querySelector("#nameF").value;
-const nameS = document.querySelector("#nameS").value;
+const errMess1 = document.querySelector("#errMess1");
+const errMess2 = document.querySelector("#errMess2");
+const errCapMess = document.querySelector("#errCapMess");
+const errNumMess = document.querySelector("#errNumMess");
+const errSymMess = document.querySelector("#errSymMess");
+const errLenMess = document.querySelector("#errLenMess");
+const toggleIt = document.querySelector("#toggleShow");
+
 const myForm = document.querySelector("#myForm");
 const firstLab = document.querySelector("#firstLab");
 const surLab = document.querySelector("#surLab");
@@ -12,6 +17,12 @@ myForm.addEventListener('submit', function(event) {
     event.preventDefault();
 });
 
+toggleIt.addEventListener("click", function () {
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    const butType = togglePassword.textContent === "Show" ? "Hide" : "Show";
+    togglePassword.textContent = butType;
+});
 
 function validateAge() {
     const ageToCheck = document.getElementById("ageInput").value
@@ -34,25 +45,69 @@ function validateAge() {
 }
 
 function errorChecker() {
+    const nameF = document.querySelector("#nameF").value;
+    const nameS = document.querySelector("#nameS").value;
     const passWd = document.querySelector("#password").value
-    if (nameF === "" || /\d/.test(nameF)) {
-        errMessage.textContent = "Please enter your first name";
-        errMessage.classList.add = "swellTime";
-        firstLab.classList.add = "swellTime";
-    }else if (nameS ="" || /\d/.test(nameS)) {
-        errMessage.textContent = "Please enter your last name";
-        errMessage.classList.add = "swellTime";
-        surLab.classList.add = "swellTime";
-    }else if (passWd = ""){
-        errMessage.textContent = "Please enter a password";
-        passLab.textContent = "swellTime";
-    }else {
-        passChecker(passWd);
-    }
+        if (nameF === "") {
+            errMess1.textContent = "Please enter your first name";
+            firstLab.classList.add("swellTime");
+        }else if(/\d/.test(nameF)) {
+            errMess1.textContent = "Your name, please, not a number";
+            firstLab.classList.add("swellTime");
+        }else if (nameS === "") {
+            errMess1.textContent = "Please enter your last name";
+            surLab.classList.add("swellTime");
+        }else if(/\d/.test(nameS)) {
+            errMess1.textContent = "Your name, please, not a number";
+            surLab.classList.add("swellTime");
+        }else if (passWd === ""){
+            errMess1.textContent = "Please enter a password";
+            passLab.classList.add("swellTime");
+        }else {
+            passChecker(passWd, nameF, nameS);
+        }
 }
 
-function passChecker (pass) {
-    
+function passChecker (pass, firstN, secN) {
+    console.log("Got This Far");
+ const testCap = /["A-Z"]/.test(pass);
+ const testNum = /\d/.test(pass);
+ const testSym = /[!@#$%^'"/=:.?<>&,;*()_+-]/.test(pass);
+ const testLen = pass.length >= 10;
+ 
+ if (!testCap) { 
+    errMess1.style.display = "0";
+    errMess2.style.opacity = "1";     
+    errCapMess.classList.add("swellTime");
+    console.log("1", errCapMess.classList);
+    }
+if (!testNum) {
+    errMess1.style.display = "0";
+    errMess2.style.opacity = "1";
+    errNumMess.classList.add("swellTime");
+    console.log("2", errNumMess.classList);
+   }
+if (!testSym) {
+    errMess1.style.display = "0";
+    errMess2.style.opacity = "1";
+    errSymMess.classList.add("swellTime");
+    console.log("3", errSymMess.classList);
+   }
+if (!testLen) {
+    errMess1.style.display = "0";
+    errMess2.style.opacity = "1";
+    errLenMess.classList.add("swellTime");
+    console.log("4", errLenMess.classList);
+   }
+   
+   if (testCap && testLen && testNum && testSym) {
+       errMess2.style.opacity = "0";
+       errMess1.style.display = "1";
+       errMess1.textContent = "Excellent, " + firstN + " " + secN + ", let's visit my site";
+       setTimeout(function () {
+        window.location.href = "https://2023.webdev-cf2m.be/Lee/Site/";
+    }, 1999.999999999999999999999999999999999999999999999999999999999);
+    }
 }
     
     
