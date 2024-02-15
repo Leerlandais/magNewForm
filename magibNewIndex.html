@@ -6,12 +6,18 @@
     <link rel="stylesheet" href="magibNewForm.css">
     <title>Age Check</title>
 </head>
-<body>
-
+<body class="bodyIndex">
+<div class="indexLabel">
+    <div id="slidingBox">
+    <fieldset>
+        <legend>Age Verification</legend>
     <label for="ageTest">Enter Your Age</label>
         <input type="text" name="ageTest" id = "ageInput">
     <input type="submit" class = "ageButton" value = "Validate Age" onclick = "validateAge()">
-    <p id = "ageErreur"></p>
-    <script src="magibNewForm.js"></script>
+</fieldset>
+    </div>
+<h4 id = "ageErreur"></p>
+</div>
+    <script src="magibNewFormAge.js"></script>
 </body>
 </html>

@@ -6,22 +6,24 @@ const errNumMess = document.querySelector("#errNumMess");
 const errSymMess = document.querySelector("#errSymMess");
 const errLenMess = document.querySelector("#errLenMess");
 const toggleIt = document.querySelector("#toggleShow");
-
 const myForm = document.querySelector("#myForm");
 const firstLab = document.querySelector("#firstLab");
 const surLab = document.querySelector("#surLab");
-const passLab = document.querySelector("passLab");
+const passLab = document.querySelector("#passLab");
+
 
 
 myForm.addEventListener('submit', function(event) {
     event.preventDefault();
 });
 
+
+
 toggleIt.addEventListener("click", function () {
     const type = password.getAttribute("type") === "password" ? "text" : "password";
     password.setAttribute("type", type);
-    const butType = togglePassword.textContent === "Show" ? "Hide" : "Show";
-    togglePassword.textContent = butType;
+    const butType = toggleIt.textContent === "Show" ? "Hide" : "Show";
+    toggleIt.textContent = butType;
 });
 
 function validateAge() {
@@ -41,32 +43,59 @@ function validateAge() {
     }else {
     ageErreur.textContent = "Hmm, something has gone wrong with validateAge()";
     }
-
+    
 }
 
 function errorChecker() {
     const nameF = document.querySelector("#nameF").value;
     const nameS = document.querySelector("#nameS").value;
     const passWd = document.querySelector("#password").value
-        if (nameF === "") {
-            errMess1.textContent = "Please enter your first name";
-            firstLab.classList.add("swellTime");
-        }else if(/\d/.test(nameF)) {
-            errMess1.textContent = "Your name, please, not a number";
-            firstLab.classList.add("swellTime");
-        }else if (nameS === "") {
-            errMess1.textContent = "Please enter your last name";
-            surLab.classList.add("swellTime");
-        }else if(/\d/.test(nameS)) {
-            errMess1.textContent = "Your name, please, not a number";
-            surLab.classList.add("swellTime");
-        }else if (passWd === ""){
-            errMess1.textContent = "Please enter a password";
-            passLab.classList.add("swellTime");
-        }else {
-            passChecker(passWd, nameF, nameS);
+    let stopMe = false;
+    if (nameF === "") {
+        errMess1.textContent = "Please enter your first name";
+        firstLab.classList.add("swellTime");
+        stopMe = true;
+    }else {
+        errMess1.textContent="";
+        stopMe = false;
+    }
+    if(/\d/.test(nameF)) {
+        errMess1.textContent = "Your name, please, not a number";
+        firstLab.classList.add("swellTime");
+        stopMe = true;
+    }else {
+        errMess1.textContent="";
+        stopMe = false;
+    }
+    if (nameS === "") {
+        errMess1.textContent = "Please enter your last name";
+        surLab.classList.add("swellTime");
+        stopMe = true;
+    }else {
+            errMess1.textContent="";
+            stopMe = false;
         }
-}
+        if(/\d/.test(nameS)) {
+            errMess1.textContent = "Your name, please, not a number";
+            surLab.classList.add("swellTime");
+            stopMe = true;
+        }else {
+            errMess1.textContent="";
+            stopMe = false;
+        }
+            if (passWd === ""){
+                errMess1.textContent = "Please enter a password";
+                stopMe = true;
+                passLab.classList.add("swellTime");
+            }
+                
+                if(stopMe) {
+                    return;
+                }else {
+                    passChecker(passWd, nameF, nameS);
+                }
+            }
+        
 
 function passChecker (pass, firstN, secN) {
     console.log("Got This Far");
@@ -103,6 +132,7 @@ if (!testLen) {
    if (testCap && testLen && testNum && testSym) {
        errMess2.style.opacity = "0";
        errMess1.style.display = "1";
+       errMess1.classList.add("swellTime");
        errMess1.textContent = "Excellent, " + firstN + " " + secN + ", let's visit my site";
        setTimeout(function () {
         window.location.href = "https://2023.webdev-cf2m.be/Lee/Site/";
